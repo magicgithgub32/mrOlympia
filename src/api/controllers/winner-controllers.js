@@ -41,6 +41,17 @@ const updateWinner = async (req, res, next) => {
   try {
     const { id } = req.params;
 
+    const newWinner = new Winner(req.body);
+
+    newWinner._id = id;
+
+    const originalWinner = await Winner.findById(id);
+
+    if (req.file) {
+      deleteImgCloudinary(originalWinner.image);
+      newWinner.image = req.file.path;
+    }
+
     const updatedWinner = await Winner.findByIdAndUpdate(id, req.body, {
       new: true,
     });
