@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const ContestSchema = new mongoose.Schema(
   {
-    year: { type: String, required: true, trim: true },
+    year: { type: Number, required: true, trim: true },
 
     winner: [
       {
