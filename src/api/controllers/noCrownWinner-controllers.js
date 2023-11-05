@@ -5,17 +5,16 @@ const NoCrownWinner = require("../models/noCrownWinner-model");
 
 const getAllNoCrownWinners = async (req, res, next) => {
   try {
-    const noCrownwinners = await NoCrownWinner.find();
-    return res.status(200).json(noCrownwinners);
+    const noCrownWinners = await NoCrownWinner.find();
+    return res.status(200).json(noCrownWinners);
   } catch (error) {
-    return next("NoCrown-Winners not found 😐", error);
+    return next("NoCrownWinners not found 🥺", error);
   }
 };
 
 const createNoCrownWinner = async (req, res, next) => {
   try {
-    const newNoCrownWinner = new NoCrownWinner(req.body);
-
+    const newNoCrownWinner = await NoCrownWinner(req.body);
     if (req.file) {
       newNoCrownWinner.image = req.file.path;
     } else {
@@ -24,7 +23,7 @@ const createNoCrownWinner = async (req, res, next) => {
     const createdNoCrownWinner = await newNoCrownWinner.save();
     return res.status(200).json(createdNoCrownWinner);
   } catch (error) {
-    return next("Error while creating new NoCrown-Winner 😨", error);
+    return next("Error while creating new NoCrownWinner 😑", error);
   }
 };
 
@@ -33,7 +32,7 @@ const getNoCrownWinnerById = async (req, res, next) => {
     const noCrownWinner = await NoCrownWinner.findById(req.params.id);
     return res.status(200).json(noCrownWinner);
   } catch (error) {
-    return next("NoCrown-Winner not found 😰", error);
+    return next("NoCrownWinner not found 😢", error);
   }
 };
 
@@ -41,14 +40,14 @@ const updateNoCrownWinner = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const newNoCrownWinner = new NoCrownWinner(req.body);
+    const newNoCrownWinner = await NoCrownWinner(req.body);
 
     newNoCrownWinner._id = id;
 
     const originalNoCrownWinner = await NoCrownWinner.findById(id);
 
     if (req.file) {
-      deleteImgCloudinary(originalNoCrownWinner.image);
+      deleteImgCloudinary(originalNoCrownWinner._image);
       newNoCrownWinner.image = req.file.path;
     }
 
@@ -61,20 +60,20 @@ const updateNoCrownWinner = async (req, res, next) => {
     );
     return res.status(200).json(updatedNoCrownWinner);
   } catch (error) {
-    return next("Error while updating NoCrown-Winner 🙅‍♂️", error);
+    return next("Error while updating NoCrownWinner 🤦‍♂️", error);
   }
 };
 
 const deleteNoCrownWinner = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deletedNoCrownWinner = await NoCrownWinner.findByIdAndDelete(id);
+    const deletedNoCrownWiner = await NoCrownWinner.findByIdAndDelete(id);
 
-    deleteImgCloudinary(deletedNoCrownWinner.image);
+    deleteImgCloudinary(deleteNoCrownWinner.image);
 
-    return res.status(200).json("No Crown-Winner deleted succesfully ␡");
+    return res.status(200).json("NoCrownWinner deleted succesfully");
   } catch (error) {
-    return next("NoCrown-Winner not found 🤷‍♂️", error);
+    return next("NoCrownWinner not found 🤷‍♂️", error);
   }
 };
 
@@ -94,7 +93,7 @@ const uploadNoCrownWinnerImg = async (req, res, next) => {
       return res.status(200).json(updatedNoCrownWinner);
     }
   } catch (error) {
-    return next("Error uploading image 👎", error);
+    return next("Error uploading image 🙈", error);
   }
 };
 

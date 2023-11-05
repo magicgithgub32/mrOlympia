@@ -12,6 +12,7 @@ const storage = new CloudinaryStorage({
 });
 
 const uploadWinnerImgCloudinary = multer({ storage });
+const uploadnoCrownWinnerImgCloudinary = multer({ storage });
 
 const deleteImgCloudinary = (imgUrl) => {
   const imgSplitted = imgUrl.split("/");
@@ -33,6 +34,7 @@ const configCloudinary = () => {
 
 module.exports = {
   uploadWinnerImgCloudinary,
+  uploadnoCrownWinnerImgCloudinary,
   deleteImgCloudinary,
   configCloudinary,
 };

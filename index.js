@@ -1,7 +1,5 @@
 require("dotenv").config();
 
-
-
 const express = require("express");
 const { connectDB } = require("./src/config/db");
 const mainRouter = require("./src/api/routes/index-routes");
@@ -30,6 +28,6 @@ server.use("*", (req, res, next) => {
   return res.status(404).json("Route not found 🙈");
 });
 
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running in ${PORT} 🏃🏻‍♀️`);
 });
