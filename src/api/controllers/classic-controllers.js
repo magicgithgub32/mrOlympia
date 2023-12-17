@@ -46,7 +46,7 @@ const updateClassic = async (req, res, next) => {
     const originalClassic = await Classic.findById(id);
 
     if (req.file) {
-      deleteImgCloudinary(originalClassic._image);
+      deleteImgCloudinary(originalClassic.image);
       newClassic.image = req.file.path;
     }
     const updatedClassic = await Classic.findByIdAndUpdate(id, req.body, {
@@ -63,7 +63,7 @@ const deleteClassic = async (req, res, next) => {
     const { id } = req.params;
     const deletedClassic = await Classic.findByIdAndDelete(id);
 
-    deleteImgCloudinary(deleteClassic.image);
+    deleteImgCloudinary(deletedClassic.image);
 
     return res.status(200).json("Classic deleted");
   } catch (error) {
